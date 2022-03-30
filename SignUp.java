@@ -1,9 +1,9 @@
 import java.awt.*;
-        import java.awt.event.ActionEvent;
-        import java.awt.event.ActionListener;
-        import java.util.*;
-        import java.io.*;
-        import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.*;
+import java.io.*;
+import javax.swing.*;
 public class SignUp {
     private String userFileName;
     private ArrayList<String> userInfo;
@@ -99,6 +99,7 @@ public class SignUp {
                 userInfo.add(initialDTf.getText());
                 userInfo.add(annualSTf.getText());
                 createUserInfo();
+                new Login();
                 frame.dispose();
             }
         });

@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class Login {
-    public static void main(String args[]) {
+    public Login(){
         JFrame frame = new JFrame("Login");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -45,7 +45,8 @@ public class Login {
 
         frame.setSize(300,400);
         frame.setVisible(true);
-
-        // open the file
+    }
+    public static void main(String args[]) {
+        Login log = new Login();
     }
 }
