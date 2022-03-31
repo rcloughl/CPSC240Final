@@ -1,10 +1,14 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.*;
 
 public class UserInfo {
-    public UserInfo(){
+    private File file;
+
+
+    public UserInfo(File file){
         JFrame frame = new JFrame("Account Info");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -41,8 +45,8 @@ public class UserInfo {
         b3.addActionListener( e -> {
         });
 
-    }
-    public static void main(String [] args) {
-        UserInfo page = new UserInfo();
+        b4.addActionListener( e -> {
+        });
+
     }
 }

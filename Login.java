@@ -1,7 +1,10 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.*;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
 
 public class Login {
     public Login(){
@@ -27,7 +30,34 @@ public class Login {
                 new SignUp();
                 frame.dispose();
             }
+
+
         });
+
+        b1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                File directory = new File("userInfo");
+                File[] deckList = directory.listFiles();
+                assert deckList != null;
+                for (File file : deckList) {
+                    Scanner scan = null;
+                    try {
+                        scan = new Scanner(file);
+                    } catch (FileNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
+                    assert scan != null;
+                    String fLine = scan.nextLine();
+                    String sLine = scan.nextLine();
+                    String userName = textField.getText();
+                    String passWord = String.valueOf(pw.getPassword());
+                    if (fLine.equals(userName) && sLine.equals(passWord)) {
+                        new UserInfo(file);
+                        frame.dispose();
+                        break;
+                    }}}});
+
         label.setBounds(50,100,100,20);
         textField.setBounds(150, 100, 100,20);
         label2.setBounds(50,140,100,20);
