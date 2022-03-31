@@ -96,7 +96,9 @@ public class SignUp {
             public void actionPerformed(ActionEvent e) {
                 userInfo.add(uNameTf.getText());
                 userInfo.add(pwTf.getText());
+                userInfo.add("*");
                 userInfo.add(initialDTf.getText());
+                userInfo.add("*");
                 userInfo.add(annualSTf.getText());
                 createUserInfo();
                 new Login();
@@ -115,8 +117,5 @@ public class SignUp {
         container.add(createB);
         frame.setVisible(true);
 
-    }
-    public static void main(String[] args) {
-        SignUp signUpPage = new SignUp();
     }
 }

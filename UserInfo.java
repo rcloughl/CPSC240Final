@@ -2,15 +2,25 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 import javax.swing.*;
 
 public class UserInfo {
-    private File file;
 
+    private ArrayList<String> data = new ArrayList<>();
 
-    public UserInfo(File file){
+    public UserInfo(File file) throws FileNotFoundException {
         JFrame frame = new JFrame("Account Info");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        Scanner scan = new Scanner(file);
+
+        while (scan.hasNext()){
+            data.add(scan.nextLine());
+        }
+
 
         Container contentPane = frame.getContentPane();
 
@@ -37,6 +47,23 @@ public class UserInfo {
         frame.setVisible(true);
 
         b1.addActionListener(e -> {
+            ArrayList<String> checking = showTransaction(data,"*");
+            JFrame menu = new JFrame("Checking");
+            menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            menu.setSize(300,260);
+            menu.setVisible(true);
+
+            GridLayout grid = new GridLayout(20, 0,0,0);
+            JPanel panel = new JPanel(grid);
+            JLabel l2 = new JLabel("Transactions:");
+            panel.add(l2);
+            panel.setBounds(30,30,40,230);
+            for (String i : checking){
+                JLabel trans = new JLabel((i));
+                trans.setSize(5,1);
+                panel.add(trans);
+            }
+            menu.add(panel);
         });
 
         b2.addActionListener(e -> {
@@ -47,6 +74,26 @@ public class UserInfo {
 
         b4.addActionListener( e -> {
         });
+
+    }
+    public ArrayList<String> showTransaction(ArrayList<String> data, String i ){
+        ArrayList<String> trans = new ArrayList<>();
+        int count=0;
+        for ( String x : data) {
+            if (count==1 && !x.equals(i)){
+                trans.add(x);
+            }
+            if (x.equals(i)) {
+                count++;
+            }
+            if(count == 2)
+                break;
+        }
+        return trans;
+    }
+
+    public void deposit(ArrayList<String> data){
+
 
     }
 }
