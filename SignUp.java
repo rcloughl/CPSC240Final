@@ -36,7 +36,9 @@ public class SignUp {
     public void save(PrintWriter pw){
         pw.println(getUserName());
         pw.println(getPassWord());
+        pw.println("*");
         pw.println(getInitialDeposit());
+        pw.println("*");
         pw.println(getAnnualSalary());
     }
     //
@@ -91,14 +93,13 @@ public class SignUp {
         annualSTf.setBounds(145,163,100,20);
         createB.setBounds(90,250,100,20);
         userInfo = new ArrayList<>();
+
         createB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 userInfo.add(uNameTf.getText());
                 userInfo.add(pwTf.getText());
-                userInfo.add("*");
                 userInfo.add(initialDTf.getText());
-                userInfo.add("*");
                 userInfo.add(annualSTf.getText());
                 createUserInfo();
                 new Login();

@@ -59,6 +59,7 @@ public class UserInfo {
             panel.add(l2);
             panel.setBounds(30,30,40,230);
             for (String i : checking){
+
                 JLabel trans = new JLabel((i));
                 trans.setSize(5,1);
                 panel.add(trans);

@@ -80,7 +80,4 @@ public class Login {
         frame.setSize(300,400);
         frame.setVisible(true);
     }
-    public static void main(String args[]) {
-        Login log = new Login();
-    }
 }
