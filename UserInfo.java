@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.*;
 
+import static java.awt.Color.GREEN;
+
+
 public class UserInfo {
+
 
     private ArrayList<String> data = new ArrayList<>();
 
@@ -52,22 +56,29 @@ public class UserInfo {
             menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             menu.setSize(300,260);
             menu.setVisible(true);
-
             GridLayout grid = new GridLayout(20, 0,0,0);
             JPanel panel = new JPanel(grid);
             JLabel l2 = new JLabel("Transactions:");
             panel.add(l2);
             panel.setBounds(30,30,40,230);
             for (String i : checking){
-
-                JLabel trans = new JLabel((i));
-                trans.setSize(5,1);
-                panel.add(trans);
+                if (i.startsWith("-")) {
+                    JLabel trans = new JLabel(i);
+                    trans.setSize(5, 1);
+                    panel.add(trans);
+                }
+                else
+                {
+                    JLabel trans = new JLabel(i);
+                    trans.setSize(5, 1);
+                    panel.add(trans);
+                }
             }
             menu.add(panel);
         });
 
         b2.addActionListener(e -> {
+
         });
 
         b3.addActionListener( e -> {
