@@ -1,18 +1,14 @@
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import javax.swing.*;
-
-import static java.awt.Color.GREEN;
 
 
 public class UserInfo {
 
-
+    private JTextField deposit_field;
     private ArrayList<String> data = new ArrayList<>();
 
     public UserInfo(File file) throws FileNotFoundException {
@@ -78,6 +74,19 @@ public class UserInfo {
         });
 
         b2.addActionListener(e -> {
+            JFrame make_deposit = new JFrame ("Make Deposit");
+            make_deposit.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            make_deposit.setSize(300, 260);
+            JLabel label = new JLabel("Enter how much you would like to deposit: ");
+            make_deposit.getContentPane().add(label);
+            frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+            deposit_field = new JTextField(1);
+            make_deposit.getContentPane().add(deposit_field);
+            make_deposit.setVisible(true);
+
+
+
+
 
         });
 
@@ -105,6 +114,9 @@ public class UserInfo {
     }
 
     public void deposit(ArrayList<String> data){
+        String deposit = deposit_field.getText();
+        Double deposit_amount = Double.parseDouble(deposit);
+
 
 
     }
