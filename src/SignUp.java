@@ -102,7 +102,7 @@ public class SignUp {
                 userInfo.add(initialDTf.getText());
                 userInfo.add(annualSTf.getText());
                 createUserInfo();
-                new Login();
+                new PopUp();
                 frame.dispose();
             }
         });
