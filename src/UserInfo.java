@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.Scanner;
 
 public class UserInfo {
 
-    private JTextField deposit_field;
+
     private ArrayList<String> data = new ArrayList<>();
 
     public UserInfo(File file) throws FileNotFoundException {
@@ -74,23 +76,11 @@ public class UserInfo {
         });
 
         b2.addActionListener(e -> {
-            JFrame make_deposit = new JFrame ("Make Deposit");
-            make_deposit.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            make_deposit.setSize(300, 260);
-            JLabel label = new JLabel("Enter how much you would like to deposit: ");
-            make_deposit.getContentPane().add(label);
-            frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-            deposit_field = new JTextField(1);
-            make_deposit.getContentPane().add(deposit_field);
-            make_deposit.setVisible(true);
-
-
-
-
-
+            deposit();
         });
 
         b3.addActionListener( e -> {
+            withdraw();
         });
 
         b4.addActionListener( e -> {
@@ -113,11 +103,60 @@ public class UserInfo {
         return trans;
     }
 
-    public void deposit(ArrayList<String> data){
-        String deposit = deposit_field.getText();
-        data.add(deposit);
+    public void deposit(){
+        JFrame make_deposit = new JFrame ("Make Deposit");
+        make_deposit.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Container content_pane = make_deposit.getContentPane();
+        make_deposit.setSize(300, 260);
+        JLabel label = new JLabel("Enter deposit amount: ");
+        content_pane.add(label);
+        JButton button = new JButton("Deposit");
+        content_pane.add(button);
+        JTextField deposit_field = new JTextField(1);
+        content_pane.add(deposit_field);
+        button.setBounds(90, 150, 100, 20);
+        label.setBounds(70,50,200,20);
+        deposit_field.setBounds(90, 100, 100,20);
+        content_pane.setLayout(null);
+        make_deposit.setVisible(true);
 
 
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String num = deposit_field.getText();
+                ArrayList<String> addTransaction = showTransaction(data, num);
+            }
+        });
+
+
+
+
+    }
+
+    public void withdraw(){
+        JFrame frame = new JFrame("Withdraw");
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        Container content_pane = frame.getContentPane();
+        frame.setSize(300, 260);
+        JLabel label = new JLabel("Enter withdrawal amount: ");
+        content_pane.add(label);
+        JButton button = new JButton("Withdraw");
+        content_pane.add(button);
+        JTextField withdraw_field = new JTextField(1);
+        content_pane.add(withdraw_field);
+        button.setBounds(90, 150, 100, 20);
+        label.setBounds(80,50,200,20);
+        withdraw_field.setBounds(90, 100, 100,20);
+        content_pane.setLayout(null);
+        frame.setVisible(true);
+
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
     }
 }
