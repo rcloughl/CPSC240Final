@@ -115,7 +115,7 @@ public class UserInfo {
 
     public void deposit(ArrayList<String> data){
         String deposit = deposit_field.getText();
-        Double deposit_amount = Double.parseDouble(deposit);
+        data.add(deposit);
 
 
 
