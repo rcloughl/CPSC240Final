@@ -1,8 +1,11 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
@@ -12,6 +15,17 @@ public class Login {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Container contentPane = frame.getContentPane();
+
+        JPanel panel = new JPanel();
+        panel.setBounds(100, 5, 80, 80);
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("aa1.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JLabel picLabel = new JLabel(new ImageIcon(img));
+        panel.add(picLabel);
 
         JLabel label = new JLabel("Username: ");
         JTextField textField = new JTextField(15);
@@ -75,9 +89,13 @@ public class Login {
         contentPane.add(b1);
         contentPane.add(l3);
         contentPane.add(b2);
-
+        frame.add(panel);
 
         frame.setSize(300,400);
         frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        Login l = new Login();
     }
 }
