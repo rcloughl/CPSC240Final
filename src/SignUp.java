@@ -106,8 +106,10 @@ public class SignUp {
                 userInfo.add(initialDTf.getText());
                 userInfo.add(annualSTf.getText());
                 createUserInfo();
-                new PopUp();
-                frame.dispose();
+                if (e.getSource()==createB) {
+                    new PopUp();
+                    frame.dispose();
+                }
             }
         });
         container.setLayout(null);
