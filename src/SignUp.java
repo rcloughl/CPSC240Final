@@ -39,6 +39,10 @@ public class SignUp {
         pw.println("*");
         pw.println(getInitialDeposit());
         pw.println("*");
+        pw.println("&");
+        pw.println("&");
+        pw.println("/");
+        pw.println("/");
         pw.println(getAnnualSalary());
     }
     //

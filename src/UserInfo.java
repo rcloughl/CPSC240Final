@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 
 public class UserInfo {
 
@@ -96,18 +98,7 @@ public class UserInfo {
         });
 
         b4.addActionListener( e -> {
-            System.out.println("Checking");
-            for (String line : checking){
-                System.out.println(line);
-            }
-            System.out.println("Saving");
-            for (String line : saving){
-                System.out.println(line);
-            }
-            System.out.println("Credit");
-            for (String line : credit){
-                System.out.println(line);
-            }
+            payBalanceDue();
         });
 
     }
@@ -261,7 +252,7 @@ public class UserInfo {
     public void showTransaction(String name, String type){
         ArrayList<String> info = showTransaction(data,type);
         JFrame menu = new JFrame(name);
-        menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        menu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         menu.setSize(300,260);
         menu.setVisible(true);
         GridLayout grid = new GridLayout(20, 0,0,0);
@@ -272,17 +263,93 @@ public class UserInfo {
         for (String i : info){
             if (i.startsWith("-")) {
                 JLabel trans = new JLabel(i);
+                trans.setForeground(Color.red);
                 trans.setSize(5, 1);
                 panel.add(trans);
             }
             else
             {
                 JLabel trans = new JLabel(i);
+                trans.setForeground((Color.green));
                 trans.setSize(5, 1);
                 panel.add(trans);
             }
         }
         menu.add(panel);
+    }
+
+    public double creditDue(){
+        double runningTotal=0;
+        for ( String line : credit){
+            runningTotal+=Double.parseDouble(line);
+        }
+        double temp = (runningTotal*100);
+        int temp1= (int) temp;
+        runningTotal=temp1/100;
+        if (runningTotal>0){
+            return 0;
+        }
+        else
+        {
+            runningTotal=0-runningTotal;
+            return runningTotal;
+        }
+
+    }
+
+    public void payBalanceDue(){
+
+        JFrame frame = new JFrame();
+        frame.setSize(300, 200);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        JLabel label1 = new JLabel("Minimum Balance Due:" + (creditDue()*.1));
+        JLabel label2 = new JLabel("Total amount owed:" + creditDue());
+        Container contentPane = frame.getContentPane();
+
+        JButton b1 = new JButton("Pay Minimum");
+        JButton b2 = new JButton("Pay Current Balance");
+        JButton b3 = new JButton("Pay Other Amount");
+
+        label1.setBounds(5,0,150,40);
+        label2.setBounds(0,35,300,40);
+        b1.setBounds(150,40,135,80);
+        b2.setBounds(5,130,135,80);
+        b3.setBounds(150,130,135,80);
+
+        contentPane.setLayout(null);
+        contentPane.add(label1);
+        contentPane.add(label2);
+        contentPane.add(b1);
+        contentPane.add(b2);
+        contentPane.add(b3);
+
+        frame.setSize(300,260);
+        frame.setVisible(true);
+        b1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == b1) {
+                    double cred = creditDue()*.1;
+                    checking.add(0,String.valueOf(-cred));
+                    credit.add(0,String.valueOf(cred));
+                    save();
+                    frame.dispose();
+                }
+            }
+        });
+        b2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == b2) {
+                    double cred = creditDue();
+                    checking.add(0,String.valueOf(-cred));
+                    credit.add(0,String.valueOf(cred));
+                    save();
+                    frame.dispose();
+                }
+            }
+        });
+
     }
 
     public void save(){
@@ -314,7 +381,6 @@ public class UserInfo {
         }
 
         try{
-            System.out.print(source);
             FileWriter f2 = new FileWriter(newFold,false);
             f2.write(source);
             f2.close();
