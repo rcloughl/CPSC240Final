@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +14,10 @@ public class UserInfo {
 
 
     private ArrayList<String> data = new ArrayList<>();
+
+    private ArrayList<String> checking = new ArrayList<>();
+    private ArrayList<String> saving = new ArrayList<>();
+    private ArrayList<String> credit = new ArrayList<>();
 
     public UserInfo(File file) throws FileNotFoundException {
         JFrame frame = new JFrame("Account Info");
@@ -23,6 +29,32 @@ public class UserInfo {
             data.add(scan.nextLine());
         }
 
+        int count =0;
+        for (String line : this.data){
+            if (line.equals("*")){
+                count++;
+            }
+            else
+                if (line.equals("&")){
+                    count++;
+                }
+                else
+                    if (line.equals("/")){
+                        count++;
+                    }
+                    else
+                        if(count==1){
+                            checking.add(line);
+                        }
+                        else
+                            if(count==3){
+                                saving.add(line);
+                            }
+                            else
+                                if(count==5){
+                                    credit.add(line);
+                                }
+        }
 
         Container contentPane = frame.getContentPane();
 
@@ -49,30 +81,10 @@ public class UserInfo {
         frame.setVisible(true);
 
         b1.addActionListener(e -> {
-            ArrayList<String> checking = showTransaction(data,"*");
-            JFrame menu = new JFrame("Checking");
-            menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            menu.setSize(300,260);
-            menu.setVisible(true);
-            GridLayout grid = new GridLayout(20, 0,0,0);
-            JPanel panel = new JPanel(grid);
-            JLabel l2 = new JLabel("Transactions:");
-            panel.add(l2);
-            panel.setBounds(30,30,40,230);
-            for (String i : checking){
-                if (i.startsWith("-")) {
-                    JLabel trans = new JLabel(i);
-                    trans.setSize(5, 1);
-                    panel.add(trans);
-                }
-                else
-                {
-                    JLabel trans = new JLabel(i);
-                    trans.setSize(5, 1);
-                    panel.add(trans);
-                }
-            }
-            menu.add(panel);
+
+            accountChanges(1,"0");
+
+
         });
 
         b2.addActionListener(e -> {
@@ -84,6 +96,18 @@ public class UserInfo {
         });
 
         b4.addActionListener( e -> {
+            System.out.println("Checking");
+            for (String line : checking){
+                System.out.println(line);
+            }
+            System.out.println("Saving");
+            for (String line : saving){
+                System.out.println(line);
+            }
+            System.out.println("Credit");
+            for (String line : credit){
+                System.out.println(line);
+            }
         });
 
     }
@@ -121,12 +145,9 @@ public class UserInfo {
         make_deposit.setVisible(true);
 
 
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String num = deposit_field.getText();
-                ArrayList<String> addTransaction = showTransaction(data, num);
-            }
+        button.addActionListener(e -> {
+            accountChanges(2, deposit_field.getText());
+            make_deposit.dispose();
         });
 
 
@@ -154,9 +175,152 @@ public class UserInfo {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                accountChanges(2, "-"+withdraw_field.getText());
+                frame.dispose();
+            }
+        });
+    }
+    public void accountChanges(int route, String money){
 
+        JFrame frame = new JFrame();
+        frame.setSize(300, 200);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        JLabel label1 = new JLabel("Which account would you like to view?");
+        JButton button1 = new JButton("Checking");
+        JButton button2 = new JButton("Savings");
+        JButton button3 = new JButton("Credit");
+        Container container = frame.getContentPane();
+        label1.setBounds(20, 30, 260, 20);
+        button1.setBounds(0, 60, 90, 20);
+        button2.setBounds(96, 60, 90, 20);
+        button3.setBounds(192,60,90,20);
+
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == button1) {
+                    String account="Checking";
+                    String symbol="*";
+                    if (route==1){
+                        showTransaction(account,symbol);
+                    }
+                    else
+                    {
+                        checking.add(0,money);
+                    }
+                    save();
+                    frame.dispose();
+                }
+            }
+        });
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == button2) {
+                    String account="Savings";
+                    String symbol="&";
+                    if (route==1){
+                        showTransaction(account,symbol);
+                    }
+                    else
+                    {
+                        saving.add(0,money);
+                    }
+                    save();
+                    frame.dispose();
+                }
+            }
+        });
+        button3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource()==button3){
+                    String account="Credit";
+                    String symbol="/";
+                    if (route==1){
+                        showTransaction(account,symbol);
+                    }
+                    else
+                    {
+                        credit.add(0,money);
+                    }
+                    save();
+                    frame.dispose();
+                }
             }
         });
 
+        container.add(label1);
+        container.add(button1);
+        container.add(button2);
+        container.add(button3);
+        container.setLayout(null);
+        frame.setVisible(true);
+    }
+
+    public void showTransaction(String name, String type){
+        ArrayList<String> info = showTransaction(data,type);
+        JFrame menu = new JFrame(name);
+        menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        menu.setSize(300,260);
+        menu.setVisible(true);
+        GridLayout grid = new GridLayout(20, 0,0,0);
+        JPanel panel = new JPanel(grid);
+        JLabel l2 = new JLabel("Transactions:");
+        panel.add(l2);
+        panel.setBounds(30,30,40,230);
+        for (String i : info){
+            if (i.startsWith("-")) {
+                JLabel trans = new JLabel(i);
+                trans.setSize(5, 1);
+                panel.add(trans);
+            }
+            else
+            {
+                JLabel trans = new JLabel(i);
+                trans.setSize(5, 1);
+                panel.add(trans);
+            }
+        }
+        menu.add(panel);
+    }
+
+    public void save(){
+        String fileName = "userInfo/"+data.get(0)+".info";
+        File fold= new File(fileName);
+        fold.delete();
+        File newFold = new File(fileName);
+        String source="";
+        source+=this.data.get(0)+"\n";
+        source+=this.data.get(1)+"\n";
+        source+="*\n";
+        for (String info : checking){
+            source+=info+"\n";
+        }
+        source+="*\n&\n";
+        for (String info : saving){
+            source+=info+"\n";
+        }
+        source+="&\n/\n";
+        for (String info : credit){
+            source+=info+"\n";
+        }
+        source+="/\n";
+        source+=data.get(data.lastIndexOf("/")+1);
+        data.clear();
+        Scanner replace = new Scanner(source);
+        while (replace.hasNext()){
+            data.add(replace.nextLine());
+        }
+
+        try{
+            System.out.print(source);
+            FileWriter f2 = new FileWriter(newFold,false);
+            f2.write(source);
+            f2.close();
+        }
+        catch( IOException e){
+            System.out.println("Try again.");
+        }
     }
 }
