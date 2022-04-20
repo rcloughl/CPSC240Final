@@ -326,17 +326,28 @@ public class UserInfo {
         b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == b1) {
-                    double cred = creditDue()*.1;
-                    checking.add(0,String.valueOf(-cred));
-                    credit.add(0,String.valueOf(cred));
-                    save();
-                    frame.dispose();
+                JFrame frame = new JFrame("Minimum due");
+                Container contentPane = frame.getContentPane();
+                double cred = creditDue() * .1;
+                checking.add(0,String.valueOf(-cred));
+                credit.add(0,String.valueOf(cred));
+                save();
+                if(cred == 0){
+                    JLabel label = new JLabel("Nothing is owed!");
+                    label.setBounds(25,100,350,20);
+                    contentPane.add(label);
+                } else {
+                    JLabel label = new JLabel(cred + "$ was the minimum amount which is now paid.");
+                    label.setBounds(25,100,350,20);
+                    contentPane.add(label);
                 }
-
-
+                contentPane.setLayout(null);
+                frame.setSize(400,300);
+                frame.setVisible(true);
             }
         });
+
+
         b2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
