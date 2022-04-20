@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Login {
-    public Login(){
+    public Login() {
         JFrame frame = new JFrame("Login");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -43,7 +43,7 @@ public class Login {
         JPasswordField pw = new JPasswordField(16);
         JButton b1 = new JButton("Login");
         JLabel l3 = new JLabel();
-        l3.setFont(new Font("New user? Create account to continue",Font.ITALIC,10));
+        l3.setFont(new Font("New user? Create account to continue", Font.ITALIC, 10));
         l3.setText("New user? Create account to continue");
         JButton b2 = new JButton("Signup");
         b2.addActionListener(new ActionListener() {
@@ -82,17 +82,17 @@ public class Login {
                                      }
                                  }
                              }
-                    );
+        );
 
-        time.setBounds(70, 105, 150, 20);
-        timeLabel.setBounds(100, 90, 100, 20);
-        label.setBounds(50,150,100,20);
-        textField.setBounds(150, 150, 100,20);
-        label2.setBounds(50,190,100,20);
-        pw.setBounds(150,190, 100,20);
-        b1.setBounds(100,240,80,20);
-        l3.setBounds(60,265,200,20);
-        b2.setBounds(100,290,80,20);
+        time.setBounds(83, 105, 150, 20);
+        timeLabel.setBounds(105, 90, 100, 20);
+        label.setBounds(50, 150, 100, 20);
+        textField.setBounds(150, 150, 100, 20);
+        label2.setBounds(50, 190, 100, 20);
+        pw.setBounds(150, 190, 100, 20);
+        b1.setBounds(100, 240, 80, 20);
+        l3.setBounds(60, 265, 200, 20);
+        b2.setBounds(100, 290, 80, 20);
         contentPane.setLayout(null);
         contentPane.add(time);
         contentPane.add(timeLabel);
@@ -103,11 +103,9 @@ public class Login {
         contentPane.add(b2);
         frame.add(panel);
 
-        frame.setSize(300,400);
+        frame.setSize(300, 400);
         frame.setVisible(true);
-    }
 
-    public static void main(String[] args) {
-        Login l = new Login();
+
     }
 }
