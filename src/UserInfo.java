@@ -333,11 +333,11 @@ public class UserInfo {
                 credit.add(0,String.valueOf(cred));
                 save();
                 if(cred == 0){
-                    JLabel label = new JLabel("Nothing is owed!");
+                    JLabel label = new JLabel("Nothing is owed so no minimum can be paid!");
                     label.setBounds(25,100,350,20);
                     contentPane.add(label);
                 } else {
-                    JLabel label = new JLabel(cred + "$ was the minimum amount which is now paid.");
+                    JLabel label = new JLabel(cred + "$ was the minimum payable which has now been paid.");
                     label.setBounds(25,100,350,20);
                     contentPane.add(label);
                 }
@@ -351,13 +351,26 @@ public class UserInfo {
         b2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == b2) {
-                    double cred = creditDue();
-                    checking.add(0,String.valueOf(-cred));
-                    //credit.add(0,String.valueOf(cred));
-                    save();
-                    frame.dispose();
+                double cred = creditDue();
+                checking.add(0,String.valueOf(-cred));
+                credit.add(0,String.valueOf(cred));
+                save();
+                frame.dispose();
+                JFrame frame = new JFrame("Current Balance Payment");
+                Container contentPane = frame.getContentPane();
+                if(cred == 0){
+                    JLabel label = new JLabel("Nothing is owed!");
+                    label.setBounds(25,100,350,20);
+                    contentPane.add(label);
+                } else {
+                    JLabel label = new JLabel(cred + "$ was your balance which is now paid.");
+                    label.setBounds(25,100,350,20);
+                    contentPane.add(label);
                 }
+                contentPane.setLayout(null);
+                frame.setSize(400,300);
+                frame.setVisible(true);
+
             }
         });
 
