@@ -374,6 +374,41 @@ public class UserInfo {
             }
         });
 
+        b3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new JFrame("Pay Other Amount");
+                Container contentPane = frame.getContentPane();
+                JLabel label = new JLabel("Enter how much you would like to pay:");
+                JTextField text = new JTextField(15);
+                JButton button = new JButton("Pay Amount");
+
+
+                contentPane.setLayout(null);
+                contentPane.add(button);
+                button.setBounds(95, 80, 100, 20);
+                contentPane.add(text);
+                text.setBounds(95, 50, 100, 20);
+                label.setBounds(25,25,350,20);
+                contentPane.add(label);
+                frame.setSize(300,200);
+                frame.setVisible(true);
+
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String num = text.getText();
+                        double numb = Double.parseDouble(num);
+                        checking.add(0,String.valueOf(-numb));
+                        credit.add(0, String.valueOf(numb));
+                        save();
+                        frame.dispose();
+                    }
+                });
+
+            }
+        });
+
     }
 
     public void save(){
