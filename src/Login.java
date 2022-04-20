@@ -32,8 +32,9 @@ public class Login {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         JLabel timeLabel = new JLabel("Local Time: ");
+        timeLabel.setFont(new Font("",Font.PLAIN,11));
         JLabel time = new JLabel(dtf.format(now));
-
+        time.setFont(new Font("",Font.PLAIN,11));
 
         JLabel label = new JLabel("Username: ");
         JTextField textField = new JTextField(15);
@@ -84,8 +85,8 @@ public class Login {
                              }
         );
 
-        time.setBounds(83, 105, 150, 20);
-        timeLabel.setBounds(105, 90, 100, 20);
+        time.setBounds(90, 115, 150, 20);
+        timeLabel.setBounds(110, 100, 100, 20);
         label.setBounds(50, 150, 100, 20);
         textField.setBounds(150, 150, 100, 20);
         label2.setBounds(50, 190, 100, 20);
