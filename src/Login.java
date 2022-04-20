@@ -1,13 +1,15 @@
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.io.IOException;
-import java.util.Scanner;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 public class Login {
     public Login(){
@@ -26,6 +28,12 @@ public class Login {
         }
         JLabel picLabel = new JLabel(new ImageIcon(img));
         panel.add(picLabel);
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        JLabel timeLabel = new JLabel("Local Time: ");
+        JLabel time = new JLabel(dtf.format(now));
+
 
         JLabel label = new JLabel("Username: ");
         JTextField textField = new JTextField(15);
@@ -76,14 +84,18 @@ public class Login {
                              }
                     );
 
-        label.setBounds(50,100,100,20);
-        textField.setBounds(150, 100, 100,20);
-        label2.setBounds(50,140,100,20);
-        pw.setBounds(150,140, 100,20);
-        b1.setBounds(100,190,80,20);
-        l3.setBounds(60,215,200,20);
-        b2.setBounds(100,240,80,20);
+        time.setBounds(70, 105, 150, 20);
+        timeLabel.setBounds(100, 90, 100, 20);
+        label.setBounds(50,150,100,20);
+        textField.setBounds(150, 150, 100,20);
+        label2.setBounds(50,190,100,20);
+        pw.setBounds(150,190, 100,20);
+        b1.setBounds(100,240,80,20);
+        l3.setBounds(60,265,200,20);
+        b2.setBounds(100,290,80,20);
         contentPane.setLayout(null);
+        contentPane.add(time);
+        contentPane.add(timeLabel);
         contentPane.add(label2);
         contentPane.add(pw);
         contentPane.add(b1);

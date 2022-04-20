@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static java.lang.Integer.parseInt;
-
 
 public class UserInfo {
 
@@ -335,6 +333,8 @@ public class UserInfo {
                     save();
                     frame.dispose();
                 }
+
+
             }
         });
         b2.addActionListener(new ActionListener() {
@@ -343,7 +343,7 @@ public class UserInfo {
                 if (e.getSource() == b2) {
                     double cred = creditDue();
                     checking.add(0,String.valueOf(-cred));
-                    credit.add(0,String.valueOf(cred));
+                    //credit.add(0,String.valueOf(cred));
                     save();
                     frame.dispose();
                 }
