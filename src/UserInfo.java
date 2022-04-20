@@ -300,15 +300,15 @@ public class UserInfo {
         JFrame frame = new JFrame();
         frame.setSize(300, 200);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JLabel label1 = new JLabel("Minimum Balance Due:" + (creditDue()*.1));
-        JLabel label2 = new JLabel("Total amount owed:" + creditDue());
+        JLabel label1 = new JLabel("Minimum Balance Due: " + (creditDue()*.1));
+        JLabel label2 = new JLabel("Total amount owed: " + creditDue());
         Container contentPane = frame.getContentPane();
 
         JButton b1 = new JButton("Pay Minimum");
         JButton b2 = new JButton("Pay Current Balance");
         JButton b3 = new JButton("Pay Other Amount");
 
-        label1.setBounds(5,0,150,40);
+        label1.setBounds(5,0,300,40);
         label2.setBounds(0,35,300,40);
         b1.setBounds(150,40,135,80);
         b2.setBounds(5,130,135,80);
